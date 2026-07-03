@@ -1,0 +1,4 @@
+/playwright-photos/*
+/.playwright-mcp/*
+/.superpowers/*
+*.png

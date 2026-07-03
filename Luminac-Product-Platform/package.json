@@ -1,0 +1,13 @@
+{
+  "name": "luminac-product-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "supabase:types": "supabase gen types typescript --linked > src/types/supabase.ts",
+    "supabase:migrations": "supabase migration list",
+    "cloudflare:whoami": "wrangler whoami"
+  },
+  "devDependencies": {}
+}
+
