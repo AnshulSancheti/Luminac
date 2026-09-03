@@ -1,0 +1,92 @@
+name: Luminac website
+
+on:
+  pull_request:
+    paths:
+      - "Luminac-Website/**"
+      - ".github/workflows/luminac-website.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Luminac-Website/**"
+      - ".github/workflows/luminac-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luminac-website-production
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: Luminac-Website
+
+jobs:
+  validate:
+    name: Validate production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: Luminac-Website/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Cloudflare binding types
+        run: npm run cf:typegen
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build for Cloudflare Workers
+        run: npm run cf:build
+
+  deploy:
+    name: Deploy production
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://luminac.net
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: Luminac-Website/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for Cloudflare Workers
+        run: npm run cf:build
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: Luminac-Website
+          command: deploy
+
+      - name: Verify production homepage
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 5 https://luminac.net/ > /dev/null

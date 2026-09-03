@@ -1,0 +1,44 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "luminac-website",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-03",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "luminac.net",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.luminac.net/*",
+      "zone_name": "luminac.net"
+    }
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "CATALOG_API",
+      "service": "luminac-catalog-staging",
+      "remote": true
+    }
+  ],
+  "vars": {
+    "LUMINAC_CATALOG_API_BASE_URL": "https://luminac-catalog-staging.shivam-a7d.workers.dev"
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.05
+    }
+  }
+}

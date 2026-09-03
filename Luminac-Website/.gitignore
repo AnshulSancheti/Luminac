@@ -2,3 +2,17 @@
 /.playwright-mcp/*
 /.superpowers/*
 *.png
+
+# Next.js application
+/node_modules/
+/.next/
+/.open-next/
+/out/
+/.vercel/
+*.tsbuildinfo
+next-env.d.ts
+cloudflare-env.d.ts
+
+# Figma source assets used by the production site
+!public/images/*.png
+!public/images/*.webp
