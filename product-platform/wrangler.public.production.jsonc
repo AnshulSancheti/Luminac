@@ -4,7 +4,7 @@
   "main": "cloudflare/src/public.ts",
   "compatibility_date": "2026-09-04",
   "compatibility_flags": ["nodejs_compat"],
-  "workers_dev": false,
+  "workers_dev": true,
   "preview_urls": false,
   "d1_databases": [
     {
@@ -22,7 +22,7 @@
   ],
   "vars": {
     "ENVIRONMENT": "production",
-    "ENABLE_HSTS": "false"
+    "ENABLE_HSTS": "true"
   },
   "observability": {
     "enabled": true,

@@ -2,7 +2,7 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "luminac-website",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2026-09-03",
+  "compatibility_date": "2026-09-04",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
   "preview_urls": false,
@@ -23,12 +23,12 @@
   "services": [
     {
       "binding": "CATALOG_API",
-      "service": "luminac-catalog-staging",
+      "service": "luminac-catalog-production",
       "remote": true
     }
   ],
   "vars": {
-    "LUMINAC_CATALOG_API_BASE_URL": "https://luminac-catalog-staging.shivam-a7d.workers.dev"
+    "LUMINAC_CATALOG_API_BASE_URL": "https://luminac-catalog-production.shivam-a7d.workers.dev"
   },
   "observability": {
     "enabled": true,

@@ -2,7 +2,7 @@ import { cache } from "react";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 const DEFAULT_CATALOG_API_BASE_URL =
-  "https://luminac-catalog-staging.shivam-a7d.workers.dev";
+  "https://luminac-catalog-production.shivam-a7d.workers.dev";
 
 export const catalogApiBaseUrl = (
   process.env.LUMINAC_CATALOG_API_BASE_URL ?? DEFAULT_CATALOG_API_BASE_URL

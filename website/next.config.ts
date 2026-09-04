@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "luminac-catalog-staging.shivam-a7d.workers.dev",
+        hostname: "luminac-catalog-production.shivam-a7d.workers.dev",
         pathname: "/assets/**",
       },
     ],
