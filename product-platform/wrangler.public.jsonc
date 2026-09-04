@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "luminac-catalog-staging",
+  "main": "cloudflare/src/public.ts",
+  "compatibility_date": "2026-08-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "PUBLIC_DB",
+      "database_name": "luminac-public-catalog-staging",
+      "database_id": "39c9bb9b-2d77-48b4-83d8-a6c11618ccb8",
+      "migrations_dir": "cloudflare/public-migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PUBLIC_ASSETS",
+      "bucket_name": "luminac-product-images-qa"
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "staging",
+    "ENABLE_HSTS": "false"
+  },
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1, "invocation_logs": true },
+    "traces": { "enabled": true, "head_sampling_rate": 0.05 }
+  }
+}

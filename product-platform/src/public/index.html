@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Luminac Product QA</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Internal admin</p>
+          <h1>Product QA Review</h1>
+        </div>
+        <div class="topbar-status">
+          <div class="actor-field">
+            <span>Authenticated admin</span>
+            <strong id="actorEmail">Checking identity…</strong>
+          </div>
+          <div id="connectionStatus" class="status-stack">
+            <span class="badge muted">Checking connection</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="filters" aria-label="Product filters">
+        <label class="filter-wide">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Model, family, category, CCT, finish, IP, light source" />
+        </label>
+        <label>
+          <span>Environment</span>
+          <select id="environmentFilter">
+            <option value="all">All</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="statusFilter">
+            <option value="all">All</option>
+          </select>
+        </label>
+        <label class="filter-wide">
+          <span>Category</span>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+          </select>
+        </label>
+        <label>
+          <span>Light source</span>
+          <input id="lightSourceFilter" type="search" placeholder="CREE" />
+        </label>
+        <label>
+          <span>CCT</span>
+          <input id="cctFilter" type="search" placeholder="3000K" />
+        </label>
+        <label>
+          <span>Finish</span>
+          <input id="finishFilter" type="search" placeholder="Black" />
+        </label>
+        <label>
+          <span>IP rating</span>
+          <input id="ipFilter" type="search" placeholder="IP20" />
+        </label>
+      </section>
+
+      <main class="qa-layout">
+        <section class="list-pane" aria-label="Product search results">
+          <div class="pane-header">
+            <div>
+              <h2>Products</h2>
+              <p id="listMeta">Loading products</p>
+            </div>
+            <button id="refreshButton" class="button secondary" type="button">Refresh</button>
+          </div>
+          <div id="productList" class="product-list loading-state">Loading products…</div>
+        </section>
+
+        <section id="detailPane" class="detail-pane" aria-live="polite">
+          <div class="empty-state">
+            <h2>Select a product</h2>
+            <p>Use the search and filters to find an imported product row.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+
+    <div id="diffModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="diffTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Confirm write</p>
+            <h2 id="diffTitle">Review changes before saving</h2>
+          </div>
+          <button id="closeDiffButton" class="icon-button" type="button" aria-label="Close">×</button>
+        </div>
+        <div id="diffContent" class="diff-content"></div>
+        <label class="confirm-row">
+          <input id="confirmSaveCheckbox" type="checkbox" />
+          <span>I reviewed the before/after diff and want to write these changes.</span>
+        </label>
+        <div class="modal-actions">
+          <button id="cancelSaveButton" class="button secondary" type="button">Cancel</button>
+          <button id="confirmSaveButton" class="button danger" type="button" disabled>Save confirmed changes</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

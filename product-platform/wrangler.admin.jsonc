@@ -1,0 +1,55 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "luminac-admin-staging",
+  "main": "cloudflare/src/index.ts",
+  "compatibility_date": "2026-08-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "qa.luminac.net",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./src/public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "luminac-product-qa-db",
+      "database_id": "756ac929-bd6d-45f8-8c75-4e2d3162f3c1",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PRODUCT_IMAGES",
+      "bucket_name": "luminac-product-images-qa"
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "staging",
+    "WRITES_ENABLED": "false",
+    "ACCESS_AUD": "3d1475be2ca9b9d1f782c945acebebd82c5408c307f14f196272bfdac418485f",
+    "ACCESS_TEAM_DOMAIN": "https://luminac.cloudflareaccess.com",
+    "ACCESS_ADMIN_EMAIL": "shivam@luminac.net"
+  },
+  "access": {
+    "dev": {
+      "aud": "3d1475be2ca9b9d1f782c945acebebd82c5408c307f14f196272bfdac418485f",
+      "identity": {
+        "email": "shivam@luminac.net",
+        "name": "Luminac Admin"
+      }
+    }
+  },
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1, "invocation_logs": true },
+    "traces": { "enabled": true, "head_sampling_rate": 0.05 }
+  }
+}

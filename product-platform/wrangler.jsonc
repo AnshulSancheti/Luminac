@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "luminac-product-qa",
+  "main": "cloudflare/src/index.ts",
+  "compatibility_date": "2026-08-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./src/public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/lib/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "luminac-product-qa-db",
+      "database_id": "756ac929-bd6d-45f8-8c75-4e2d3162f3c1",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PRODUCT_IMAGES",
+      "bucket_name": "luminac-product-images-qa"
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "local",
+    "WRITES_ENABLED": "false"
+  },
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1 },
+    "traces": { "enabled": true, "head_sampling_rate": 0.05 }
+  }
+}
