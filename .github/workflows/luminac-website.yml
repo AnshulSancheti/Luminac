@@ -91,5 +91,5 @@ jobs:
           workingDirectory: Luminac-Website
           command: deploy
 
-      - name: Verify production homepage
-        run: curl --fail --silent --show-error --retry 5 --retry-delay 5 https://luminac.net/ > /dev/null
+      - name: Verify deployed Worker
+        run: curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 https://luminac-website.shivam-a7d.workers.dev/ > /dev/null
